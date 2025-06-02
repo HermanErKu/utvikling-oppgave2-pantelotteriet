@@ -12,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// CORS policy to allow any origin (for dev purposes)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -22,25 +23,30 @@ builder.Services.AddCors(options =>
     });
 });
 
-
 var app = builder.Build();
 
-
+// Apply any pending EF Core migrations at startup
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate(); // Applies pending migrations
+    db.Database.Migrate();
 }
 
-
-// Enable Swagger
+// Enable Swagger in development
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();  // Optional, you can comment it out if testing over HTTP
+// Enable CORS before any endpoint handling
+app.UseCors("AllowAll");
+
+// (Optional) Enable HTTPS redirection
+// app.UseHttpsRedirection();
+
 app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();
