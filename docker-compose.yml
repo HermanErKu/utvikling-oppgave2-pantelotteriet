@@ -1,39 +1,38 @@
 services:
   db:
-    image: postgres:15
-    container_name: postgres-db
-    restart: always
+    image: postgres
     environment:
-      POSTGRES_USER: myuser
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydatabase
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   backend:
     build:
-      context: ./backend
-    container_name: dotnet-backend
+      context: ./Backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Username=postgres;Password=mypassword;Database=postgres
     depends_on:
       - db
-    environment:
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Username=myuser;Password=mypassword;Database=mydatabase
-    ports:
-      - "5000:80"
 
-  frontend:
-    build:
-      context: ./frontend
-    container_name: nextjs-frontend
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
-    environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:5000
-
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #   container_name: nextjs-frontend
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - backend
+  #   environment:
+  #     - NEXT_PUBLIC_API_URL=http://localhost:5000
 
 
 volumes:
