@@ -72,8 +72,27 @@ Her har jeg satt opp databasen som mermaidcode og tatt et skjermbilde for å vis
 Siden jeg brukte Dotnet Entity Framework Core, som er et ORM, trengte jeg aldri å kjøre SQL direkte inn mot databasen. Jeg liker likevel å ha muligheten til å gjøre dette for å se at alt stemmer i databasen. Jeg har derfor brukt [DBeaver](https://dbeaver.io/) som gir meg muligheten til å kjøre SQL calls mot databaser.
 
 
+
 ## Backend
-Dotnet EF Core
+Jeg hadde lyst på en liten utfordring med denne oppgaven og valgte derfor å sette opp en helt egen backend med Dotnet Entity Framework Core.
+
+Dotnet EF Core er et ORM: Object-Relational Mapper. ORM-er brukes for å abstrakt definere databasen i kode istedenfor å kjøre SQL calls rett mot databasen. Dette lar meg bruke vanlige objekter og klasser for å snakke med databasen imens ORM-en fikser SQL koden i bakgrunnen.
+
+I [*"Models"* mappen](https://github.com/HermanErKu/utvikling-oppgave2-pantelotteriet/tree/main/Backend/Models) i backend prosjektet ligger klassene som definerer databasen. Disse har samme navn som tegningene av databasene over.
+
+I *"Data"* mappen ligger [*"AppDbContext.cs"* filen](https://github.com/HermanErKu/utvikling-oppgave2-pantelotteriet/blob/main/Backend/Data/AppDbContext.cs) som hjelper å definere fremmednøklene og relasjonene i databasen.
+
+For å slippe unødvendige feil og data har jeg også laget DTO-er i [*"DTOs"* mappen](https://github.com/HermanErKu/utvikling-oppgave2-pantelotteriet/tree/main/Backend/DTOs). En DTO, Data Transfer Object, er en enklere klasse som brukes for å sende data mellom lag i applikasjonen. <br>Her bruker jeg Models for å definere databasen, men DTOs for å hente data fra frontend.
+
+I [*"Controllers"* mappen](https://github.com/HermanErKu/utvikling-oppgave2-pantelotteriet/tree/main/Backend/Controllers) ligger alle kontrollerne til prosjektet. En kontroller er en klasse som hånderer HTTP forespørsler fra frontend. Her har jeg en kontroller til hver model, og hver kontroller inneholder en [HttpGet] og en [HttpPost] som hånderer GET og POST forespørsler.
+<br>En GET request vil gi data fra databasen ut.
+<br>Imens en POST request vil ta data inn til databasen.
+
+Jeg lagde også en rask funksjon i *"Helpers"* mappen som heter [*"AdminApiKeyChecker.cs"*](https://github.com/HermanErKu/utvikling-oppgave2-pantelotteriet/blob/main/Backend/Helpers/AdminApiKeyChecker.cs). Denne skal sjekke om API-forespørselen inneholder riktig API-nøkkel, men jeg kom ikke så langt på denne funksjonen.
+
+Til slutt har jeg [*"Program.cs"* filen](https://github.com/HermanErKu/utvikling-oppgave2-pantelotteriet/blob/main/Backend/Program.cs) som er selve hjertet til prosjektet. Her styrer jeg alt som CORS, databasemigrering og swagger.
+
+Når jeg har kodet i backend har jeg brukt Microsoft sin Visual Studio, som er et IDE til dotnet og C#.
 
 ## Frontend
 NextJS
