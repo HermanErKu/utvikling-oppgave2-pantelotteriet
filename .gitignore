@@ -1,0 +1,27 @@
+.env
+
+# write a good .gitignore file
+# Node.js dependencies
+node_modules/
+# Build output
+dist/
+# Logs
+logs/
+# Dependency directories
+jspm_packages/
+# Optional npm cache directory
+.npm/
+# Optional REPL history
+.repl/
+# dotenv environment variables file
+.env.local
+# dotenv environment variables file example
+.env.example
+# Next.js build output
+.next/
+.vsidx
+.lock
+
+
+
+.vs/
