@@ -12,7 +12,7 @@ Og kontainerisert hele applikasjonen.
 
 ### Tech stack til prosjektet:
 
-![Tech Stack til oppgaven](<Utvikling Pantelotteri TechStack.png>)
+![Tech Stack til oppgaven](readme_data/Utvikling_Pantelotteri_TechStack.png)
 
 ## Hvordan kjøre
 
