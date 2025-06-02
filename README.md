@@ -9,6 +9,4 @@ Og
 
 
 
-![SVG with mermaidcode of database](readme_data/database_mermaid.svg)
-
-![test](readme_data/database_mermaid.svg)
+![PNG image of mermaidcode with database definition](readme_data/database_mermaid.png)
